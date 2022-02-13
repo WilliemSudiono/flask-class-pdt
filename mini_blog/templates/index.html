@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mini Blog</title>
+</head>
+<body>
+    <div>
+        <a href="/create">Create</a>
+    </div>
+    <div>
+        {% if articles %}
+        <ul>
+            {% for article in articles: %}
+            <li><a href="/view/{{ article }}">{{ article }}</a></li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <h1>No articles found!</h1>
+        {% endif %}
+    </div>
+</body>
+</html>
