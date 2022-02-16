@@ -33,6 +33,7 @@ def create():
             # strip contents to remove unused whitespaces
             articles[title] = body.strip()  # add new title as key, body as value
             f.seek(0)  # put it at the beginning to replace the whole file
+            f.truncate(0)  # truncate to make things safe
             json.dump(articles, f)  # re-insert the data
 
         # then show the view page with title and body
@@ -70,6 +71,7 @@ def edit(title):
             articles.pop(original_title)  # remove the old title
             articles[title] = body  # insert a new one
             f.seek(0)  # put at beginning
+            f.truncate(0)  # truncate to make things safe
             json.dump(articles, f)
 
         return render_template('view.html', title=title, body=body)
@@ -84,8 +86,8 @@ def delete(title):
             body = articles[title]
         return render_template('delete.html', title=title, body=body)
     else:
+        # we do not need to get the body content, just the title
         title = request.form['title']
-        body = request.form['body']
 
         # open file, find the original_title and pop
         with open('articles.txt', 'r+') as f:
