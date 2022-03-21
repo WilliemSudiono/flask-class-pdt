@@ -16,6 +16,7 @@ function createArticle() {
         (response) => {
             var data = response.data;
             if (data.redirect) {
+                // redirect exists, then set the URL to the redirect
                 window.location.href = data.redirect;
             }
 
@@ -31,8 +32,9 @@ function deleteArticle(id, title) {
     var message = "Are you sure to delete article with title " + title + " ?";
     var confirm_delete = confirm(message);
 
+    // value of confirm() function is True if user clicks on OK
     if (confirm_delete == true) {
-        // use axios to call delete
+        // use axios to call delete, with the article id to delete
         var url = "/article/delete/" + id;
         axios({
             method: "POST",

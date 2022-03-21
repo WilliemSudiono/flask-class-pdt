@@ -21,9 +21,12 @@ def index():
 def create():
     if request.method == 'POST':
         data = request.get_json() or {}
+        # check existence of title and body
         if data.get('title') and data.get('body'):
             title = data.get('title', '')
             body = data.get('body', '')
+
+            # strip() is to remove excessive whitespaces before saving
             title = title.strip()
             body = body.strip()
 
@@ -31,7 +34,7 @@ def create():
             cur = conn.cursor()
             sql = "INSERT INTO articles (title, body) VALUES ('%s', '%s')" % (title, body)
             cur.execute(sql)
-            conn.commit()
+            conn.commit()  # commit to make sure changes are saved
             cur.close()
             conn.close()
             # an example with redirect
@@ -74,6 +77,8 @@ def edit(article_id):
         cur.close()
         conn.commit()
         conn.close()
+        # use redirect to go to certain url. url_for function accepts the
+        # function name of the URL which is function index() in this case
         return redirect(url_for('index'))
 
     # find the record first
