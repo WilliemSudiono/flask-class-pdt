@@ -11,13 +11,13 @@
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ url_for('index') }}">PDT Blog</a>
             <form class="d-flex">
-                {% if not session %}
-                <a href="{{ url_for('login') }}">Log In</a>
-                {% else %}
+                {% if session and session.get('username') %}
                 <span>
                     Hello, {{ session['username'] }}
                 </span>
                 <a href="{{ url_for('logout') }}">Log Out</a>
+                {% else %}
+                <a href="{{ url_for('login') }}">Log In</a>
                 {% endif %}
             </form>
         </div>
