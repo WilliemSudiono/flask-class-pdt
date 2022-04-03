@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}
+Pets
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row mt-3">
+        {% if not pets %}
+        <p>
+            <h2>No Pets</h2>
+        </p>
+        {% else %}
+        <p>
+            List of Pets
+        </p>
+        <table class="table table-sm table-borderless">
+            <thead>
+                {% for pet_id, pet_name, category_name in pets %}
+                <tr>
+                    <td>{{ pet_name }}</td>
+                    <td>{{ category_name }}</td>
+                    <td>
+                        <a href="{{ url_for('edit_pet', pet_id=pet_id) }}">Edit</a>
+                        <a href="{{ url_for('delete_pet', pet_id=pet_id) }}">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </thead>
+        </table>
+        {% endif %}
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-3">
+            <a href="{{ url_for('create_pet') }}" class="btn btn-success">Add Pet</a>
+        </div>
+    </div>
+</div>
+
+<div class="mt-5">
+    <a href="{{ url_for('index') }}">Home</a>
+</div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}
+Delete Pet
+{% endblock %}
+
+{% block content %}
+<form action="/pet/delete/{{ pet[0] }}" method="POST">
+    <div class="row mt-3 mb-3">
+        Delete "{{ pet[1] }}" ?
+    </div>
+    <div class="row">
+        <div class="offset-2 col-6">
+            <button class="btn btn-success" type="submit">Delete</button>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a href="{{ url_for('list_pets') }}">Back to Pets</a>
+</div>
+{% endblock %}
