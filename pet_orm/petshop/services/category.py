@@ -9,10 +9,10 @@ def get_all():
     try:
         # scalars() is needed to make sure the result is put in a list
         statement = select(Category).order_by(Category.name)
-        categorys = session.execute(statement).scalars().all()
+        categories = session.execute(statement).scalars().all()
     except exc.NoResultFound as e:
         error = e
-    return categorys, error
+    return categories, error
 
 
 def get_by_id(id):
